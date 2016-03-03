@@ -16,7 +16,7 @@ High = ifelse(Sales >= 8, "Yes", "No")
 new_data = data.frame(Carseats, High)
 new_data = new_data[,-1]
 #Split the data
-set.seed(123)
+#set.seed(123)
 
 train = sample(1:nrow(new_data), 3*nrow(new_data)/4)
 test = -train
@@ -56,3 +56,10 @@ if (mcnemar<=ch){
 } else{
   print ("We reject the null hypothesis that the classifiers have the same error rate")
 }
+
+#Implementation using mcnemar.test in R
+#e11 = sum(tree_pred==test_High & ct_pred==test_High)
+#e00 = sum(tree_pred!=test_High & ct_pred!=test_High)
+
+#temp = matrix(c(e00, e10, e01, e11), nrow = 2)
+#mcnemar.test(temp)
