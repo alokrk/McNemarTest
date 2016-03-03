@@ -42,7 +42,17 @@ tree_pred = predict(tree_model, test_data, type = "class")
 ct_pred = predict(ct_model, test_data)
 
 #Errors
-sum(tree_pred!= test_High)
-#Misclassified: 34/100
-sum(ct_pred!=test_High)
-#Misclassified: 35/100
+e01 = sum(tree_pred!= test_High)
+e10 = sum(ct_pred!=test_High)
+
+mcnemar = ((abs(e01 - e10) - 1)^2) / (e10+e01)
+
+alpha = 0.05
+dof = 1
+ch = qchisq(1-alpha,dof)
+
+if (mcnemar<=ch){
+  print ("We fail to reject the null hypothesis that the classifiers have the same error rate")
+} else{
+  print ("We reject the null hypothesis that the classifiers have the same error rate")
+}
